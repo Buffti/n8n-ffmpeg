@@ -2,7 +2,7 @@ FROM n8nio/n8n:latest
 
 USER root
 
-# Check if we're on Alpine or Debian and install ffmpeg accordingly
+# Install ffmpeg for media processing
 RUN if command -v apk > /dev/null; then \
         apk add --no-cache ffmpeg; \
     elif command -v apt-get > /dev/null; then \
