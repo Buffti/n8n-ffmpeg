@@ -9,7 +9,9 @@ RUN if command -v apk > /dev/null; then \
         echo "Package manager not found" && exit 1; \
     fi
 
-# Install pdf-lib for PDF processing
-RUN npm install -g pdf-lib
+# Install pdf-lib in n8n's node_modules
+WORKDIR /usr/local/lib/node_modules/n8n
+RUN npm install pdf-lib
+WORKDIR /
 
 USER node
