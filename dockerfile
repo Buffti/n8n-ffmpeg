@@ -9,7 +9,7 @@ RUN if command -v apk > /dev/null; then \
         echo "Package manager not found" && exit 1; \
     fi
 
-# Install pdf-lib globally with proper permissions
-RUN npm install -g pdf-lib --unsafe-perm=true --allow-root
+# Install pdf-lib directly in n8n's node_modules
+RUN cd /usr/local/lib/node_modules/n8n && npm install pdf-lib --save
 
 USER node
