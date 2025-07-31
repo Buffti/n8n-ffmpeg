@@ -9,7 +9,13 @@ RUN if command -v apk > /dev/null; then \
         echo "Package manager not found" && exit 1; \
     fi
 
-# Install pdf-lib directly in n8n's node_modules
-RUN cd /usr/local/lib/node_modules/n8n && npm install pdf-lib --save
+# Create a custom node_modules directory and install pdf-lib there
+RUN mkdir -p /usr/local/lib/pdf-lib-custom && \
+    cd /usr/local/lib/pdf-lib-custom && \
+    npm init -y && \
+    npm install pdf-lib
+
+# Create symlink so n8n's VM2 can find it
+RUN ln -sf /usr/local/lib/pdf-lib-custom/node_modules/pdf-lib /usr/local/lib/node_modules/pdf-lib
 
 USER node
