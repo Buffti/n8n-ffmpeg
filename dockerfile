@@ -1,7 +1,5 @@
 FROM n8nio/n8n:latest
-
 USER root
-
 # Install ffmpeg for media processing
 RUN if command -v apk > /dev/null; then \
         apk add --no-cache ffmpeg; \
@@ -10,5 +8,8 @@ RUN if command -v apk > /dev/null; then \
     else \
         echo "Package manager not found" && exit 1; \
     fi
+
+# Install pdf-lib for PDF processing
+RUN npm install -g pdf-lib
 
 USER node
